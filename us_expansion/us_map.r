@@ -29,7 +29,9 @@ increment <- increments[length(increments)]
 states <- USAboundaries::us_states(increment)
 
 # recycle colors
-color_map <- tibble(start_date = increments,color = my.palette[1:length(increments)])
+color_map <-
+  tibble(start_date = increments, color = my.palette[1:length(increments)]) %>%
+  rownames_to_column(var = "increment_int")
 
 states <- left_join(states,color_map)
 
