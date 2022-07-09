@@ -26,7 +26,9 @@ increments <- states$start_date %>% unique() %>% sort()
 
 
 increment <- increments[length(increments)]
-states <- USAboundaries::us_states(increment)
+current_states <- USAboundaries::us_states()
+increment = 10
+states <- USAboundaries::us_states(increments[increment])
 
 # recycle colors
 color_map <-
@@ -65,3 +67,11 @@ m <- leaflet(states) %>%
   )
 
 m
+
+ggplot() +
+  geom_sf(data=current_states) +
+  geom_sf(data=states,aes(fill=start_date)) +
+  geom_sf_text(aes(label = name),data=states,check_overlap = T) +
+  coord_sf(xlim = c(-125,-65),ylim = c(25,50)) +
+  theme_minimal()
+
